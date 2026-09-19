@@ -1,0 +1,19 @@
+# Backup files
+backup/
+*.zip
+*.tar
+*.gz
+
+# Credentials and secrets
+*.json
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Windows
+Thumbs.db
+
+# macOS
+.DS_Store
