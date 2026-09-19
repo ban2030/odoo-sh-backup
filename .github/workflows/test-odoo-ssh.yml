@@ -1,0 +1,29 @@
+name: Test Odoo.sh SSH
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-ssh:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup SSH
+        env:
+          ODOO_SSH_PRIVATE_KEY: ${{ secrets.ODOO_SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          printf '%s\n' "$ODOO_SSH_PRIVATE_KEY" > ~/.ssh/odoo_backup
+          chmod 600 ~/.ssh/odoo_backup
+
+          ssh-keyscan -H ban2030.odoo.com >> ~/.ssh/known_hosts
+
+      - name: Test Odoo.sh SSH
+        run: |
+          ssh \
+            -i ~/.ssh/odoo_backup \
+            -o BatchMode=yes \
+            30422060@ban2030.odoo.com \
+            'echo "ODOO_SH_SSH_OK"; echo "HOST=$(hostname)"; echo "PWD=$(pwd)"'
