@@ -21,12 +21,13 @@ jobs:
           ssh-keyscan -H ban2030.odoo.com >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
-      - name: Test Odoo.sh SSH
+      - name: Test Odoo.sh SSH with TTY
         run: |
           timeout 20s ssh \
+            -tt \
             -i ~/.ssh/odoo_backup \
             -o BatchMode=yes \
             -o IdentitiesOnly=yes \
             -o ConnectTimeout=10 \
             30422060@ban2030.odoo.com \
-            'echo ODOO_SH_SSH_OK'
+            'echo ODOO_SH_SSH_OK; exit'
