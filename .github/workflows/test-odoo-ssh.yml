@@ -23,9 +23,10 @@ jobs:
 
       - name: Test Odoo.sh SSH
         run: |
-          ssh \
+          timeout 20s ssh \
             -i ~/.ssh/odoo_backup \
             -o BatchMode=yes \
             -o IdentitiesOnly=yes \
+            -o ConnectTimeout=10 \
             30422060@ban2030.odoo.com \
-            'echo "ODOO_SH_SSH_OK"; echo "HOST=$(hostname)"; echo "PWD=$(pwd)"'
+            'echo ODOO_SH_SSH_OK'
