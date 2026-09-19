@@ -1,3 +1,4 @@
+@'
 name: Test Google Drive
 
 on:
@@ -22,7 +23,9 @@ jobs:
 
       - name: Test Google Drive
         env:
-          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          GOOGLE_OAUTH_CLIENT_JSON_B64: ${{ secrets.GOOGLE_OAUTH_CLIENT_JSON_B64 }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
           GOOGLE_DRIVE_FOLDER_ID: ${{ secrets.GOOGLE_DRIVE_FOLDER_ID }}
         run: |
           python scripts/backup.py
+'@ | Set-Content -Path ".\.github\workflows\backup.yml" -Encoding UTF8
